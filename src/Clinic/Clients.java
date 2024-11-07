@@ -1,4 +1,4 @@
-package Mondejar;
+package Clinic;
 
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
@@ -11,26 +11,23 @@ public class Clients {
     public void list(){
         boolean exit = true;
         do{
-            System.out.println("+----------------------------------------------------------------------------------------------------+");
-            System.out.printf("|%-25s%-50s%-25s|\n","","**List of Clients**","");
-            System.out.printf("|%-5s%-95s|\n","","1. Add");
-            System.out.printf("|%-5s%-95s|\n","","2. Edit");
-            System.out.printf("|%-5s%-95s|\n","","3. Delete");
-            System.out.printf("|%-5s%-95s|\n","","4. View");
-            System.out.printf("|%-5s%-95s|\n","","5. Exit");
-            System.out.printf("|%-5sEnter Choice: ","");
+            System.out.println("\tList of Clients");
+            System.out.println("1. Add");
+            System.out.println("2. Edit");
+            System.out.println("3. Delete");
+            System.out.println("4. View");
+            System.out.println("5. Exit");
             int choice;
             while(true){
+                System.out.print("Enter Choice: ");
                 try{
                     choice = input.nextInt();
                     if(choice>0 && choice<6){
                         break;
-                    }else{
-                        System.out.printf("|%-5sEnter Choice Again: ","");
                     }
                 }catch(Exception e){
                     input.next();
-                    System.out.printf("|%-5sEnter Choice Again: ","");
+                    System.out.println("\tEnter Valid Integer!");
                 }
             }
             switch(choice){
@@ -64,32 +61,31 @@ public class Clients {
         LocalDate bdate;
         
         do{
-            System.out.println("+----------------------------------------------------------------------------------------------------+");
-            System.out.printf("|%-25s%-50s%-25s|\n","","**Add Client**","");
-            System.out.print("|\tEnter First Name: ");
+            System.out.println("\tAdd Client");
+            System.out.print("Enter First Name: ");
             String fname = input.next();
-            System.out.print("|\tEnter Middle Name: ");
+            System.out.print("Enter Middle Name: ");
             String mname = input.next();
-            System.out.print("|\tEnter Last Name: ");
+            System.out.print("Enter Last Name: ");
             String lname = input.next();
             String bdate2;
             while(true){
-                System.out.print("|\tEnter Birth Date (YYYY-MM-DD): ");
+                System.out.print("Enter Birth Date(YYYY-MM-DD): ");
                 try{
                     bdate2 = input.next();
                     bdate = LocalDate.parse(bdate2,dateFormat);
                     if(bdate.isBefore(cdate.minusYears(18))&&bdate.isAfter(cdate.minusYears(120))){
                         break;
                     }else{
-                        System.out.printf("|%-10s%-80s%-10s|\n","","**Client Must be 18 Years Old, and Should not be Older than 120**","");
+                        System.out.println("Age must be 18 above but 120 below");
                     }
                 }catch(Exception e){
-                    System.out.printf("|%-20s%-60s%-20s|\n","","**Follow (YYYY-MM-DD) example (2003-01-05)**","");
+                    System.out.println("Invalid Date!");
                 }
             }
             String gender;
             while(true){
-                System.out.print("|\tGender (Male/Female): ");
+                System.out.print("Gender: ");
                 try{
                     gender = input.next();
                     if(gender.equalsIgnoreCase("Male")||gender.equalsIgnoreCase("Female")){
@@ -101,7 +97,7 @@ public class Clients {
             }
             long number;
             while(true){
-                System.out.print("|\tEnter Contat#: +63 ");
+                System.out.print("Enter Contat#: +63 ");
                 try{
                     number = input.nextLong();
                     if(number>9000000000L && number<9999999999L){
@@ -121,9 +117,7 @@ public class Clients {
     private void delete(){
         boolean exit = true;
         do{
-            System.out.println("+----------------------------------------------------------------------------------------------------+");
-            System.out.printf("|%-25s%-50s%-25s|\n","","**Delete Client**","");
-            System.out.printf("|%-25s%-50s%-25s|\n","","**!Enter 0 in ID to Exit!**","");
+            System.out.println("Delete Client");
             System.out.print("|\tEnter ID to Edit: ");
             int id;
             while(true){
@@ -135,11 +129,11 @@ public class Clients {
                         exit = false;
                         break;
                     }else{
-                        System.out.print("|\tEnter ID to Edit Again: ");
+                        System.out.print("Enter ID to Edit Again: ");
                     }
                 }catch(Exception e){
                     input.next();
-                    System.out.print("|\tEnter ID to Edit Again: ");
+                    System.out.print("Enter ID to Edit Again: ");
                 }
             }
             while(exit){
@@ -155,10 +149,8 @@ public class Clients {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate bdate;
         do{
-            System.out.println("+----------------------------------------------------------------------------------------------------+");
-            System.out.printf("|%-25s%-50s%-25s|\n","","**Edit Client**","");
-            System.out.printf("|%-25s%-50s%-25s|\n","","**!Enter 0 in ID to Exit!**","");
-            System.out.print("|\tEnter ID to Edit: ");
+            System.out.println("\tEdit Client");
+            System.out.print("Enter ID to Edit: ");
             int id;
             while(true){
                 try{
@@ -169,38 +161,38 @@ public class Clients {
                         exit = false;
                         break;
                     }else{
-                        System.out.print("|\tEnter ID to Edit Again: ");
+                        System.out.print("tEnter ID to Edit Again: ");
                     }
                 }catch(Exception e){
                     input.next();
-                    System.out.print("|\tEnter ID to Edit Again: ");
+                    System.out.print("Enter ID to Edit Again: ");
                 }
             }
             while(exit){
-                System.out.print("|\tEnter New First Name: ");
+                System.out.print("Enter New First Name: ");
                 String fname = input.next();
-                System.out.print("|\tEnter New Middle Name: ");
+                System.out.print("Enter New Middle Name: ");
                 String mname = input.next();
-                System.out.print("|\tEnter New Last Name: ");
+                System.out.print("Enter New Last Name: ");
                 String lname = input.next();
                 String bdate2;
                 while(true){
-                    System.out.print("|\tEnter New Birth Date (YYYY-MM-DD): ");
+                    System.out.print("Enter New Birth Date (YYYY-MM-DD): ");
                     try{
                         bdate2 = input.next();
                         bdate = LocalDate.parse(bdate2,dateFormat);
                         if(bdate.isBefore(cdate.minusYears(18))&&bdate.isAfter(cdate.minusYears(120))){
                             break;
                         }else{
-                            System.out.printf("|%-10s%-80s%-10s|\n","","**Client Must be 18 Years Old, and Should not be Older than 120**","");
+                            System.out.println("Age must be 18 above but 120 below");
                         }
                     }catch(Exception e){
-                        System.out.printf("|%-20s%-60s%-20s|\n","","**Follow (YYYY-MM-DD) example (2003-01-05)**","");
+                        System.out.println("Invalid Date!");
                     }
                 }
                 String gender;
                 while(true){
-                    System.out.print("|\tNew Gender (Male/Female): ");
+                    System.out.print("New Gender: ");
                     try{
                         gender = input.next();
                         if(gender.equalsIgnoreCase("Male")||gender.equalsIgnoreCase("Female")){
@@ -212,7 +204,7 @@ public class Clients {
                 }
                 long number;
                 while(true){
-                    System.out.print("|\tEnter New Contat#: +63 ");
+                    System.out.print("Enter New Contat#: +63 ");
                     try{
                         number = input.nextLong();
                         if(number>9000000000L && number<9999999999L){

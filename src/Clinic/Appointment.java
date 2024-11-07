@@ -1,4 +1,4 @@
-package Mondejar;
+package Clinic;
 
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
@@ -9,18 +9,16 @@ public class Appointment {
     Scanner input = new Scanner(System.in);
     config conf = new config();
     Clients c = new Clients();
-    
     public void List(){
         boolean exit = true;
         do{
-            System.out.println("+----------------------------------------------------------------------------------------------------+");
-            System.out.printf("|%-25s%-50s%-25s|\n","","**Manage Appointments**","");
-            System.out.printf("|%-5s%-95s|\n","","1. Add");
-            System.out.printf("|%-5s%-95s|\n","","2. Select Scheduled to Finished");
-            System.out.printf("|%-5s%-95s|\n","","3. Select Scheduled to Canceled");
-            System.out.printf("|%-5s%-95s|\n","","4. View");
-            System.out.printf("|%-5s%-95s|\n","","5. Exit");
-            System.out.printf("|%-5sEnter Choice: ","");
+            System.out.println("\tManage Appointments");
+            System.out.println("  1. Add");
+            System.out.println("  2. Select Scheduled to Finished");
+            System.out.println("  3. Select Scheduled to Canceled");
+            System.out.println("  4. View");
+            System.out.println("  5. Exit");
+            System.out.print("Enter Choice: ");
             int choice;
             while(true){
                 try{
@@ -59,15 +57,10 @@ public class Appointment {
     }
     private void add(){
         boolean exit = true;
-        LocalDate cdate = LocalDate.now();
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate bdate;
-        
         do{
-            System.out.println("+----------------------------------------------------------------------------------------------------+");
-            System.out.printf("|%-25s%-50s%-25s|\n","","**Make Appointments**","");
-            System.out.printf("|%-25s%-50s%-25s|\n","","**!Enter 0 in ID to Exit!**","");
-            System.out.print("|\tEnter Owner ID: ");
+            System.out.println("\tMake Appointments");
+            System.out.print("Enter Owner ID: ");
             int id;
             while(true){
                 try{
@@ -78,36 +71,38 @@ public class Appointment {
                         exit = false;
                         break;
                     }else{
-                        System.out.print("|\tEnter ID to Edit Again: ");
+                        System.out.print("Enter ID to Edit Again: ");
                     }
                 }catch(Exception e){
                     input.next();
-                    System.out.print("|\tEnter ID to Edit Again: ");
+                    System.out.print("Enter ID to Edit Again: ");
                 }
             }
+            LocalDate bdate;
+            LocalDate cdate = LocalDate.now();
             while(exit){
-                System.out.print("|\tEnter Animal Type: ");
+                System.out.print("Enter Animal Type: ");
                 String atype = input.next();
-                System.out.print("|\tEnter Animal Name: ");
+                System.out.print("Enter Animal Name: ");
                 String aname = input.next();
                 String bdate2;
                 while(true){
-                    System.out.print("|\tEnter Birth Date (YYYY-MM-DD): ");
+                    System.out.print("Enter Birth Date (YYYY-MM-DD): ");
                     try{
                         bdate2 = input.next();
                         bdate = LocalDate.parse(bdate2,dateFormat);
                         if(bdate.isBefore(cdate)&&bdate.isAfter(cdate.minusYears(100))){
                             break;
                         }else{
-                            System.out.printf("|%-10s%-80s%-10s|\n","","**Note: Animals with 100+ year lifespans may need specialized care!**","");
+                            System.out.println("Animal Above 100 should be taken special care");
                         }
                     }catch(Exception e){
-                        System.out.printf("|%-20s%-60s%-20s|\n","","**Follow (YYYY-MM-DD) example (2003-01-05)**","");
+                        System.out.println("Instruction (YYYY-MM-DD)!");
                     }
                 }
                 String gender;
                 while(true){
-                    System.out.print("|\tGender (Male/Female): ");
+                    System.out.print("Gender: ");
                     try{
                         gender = input.next();
                         if(gender.equalsIgnoreCase("Male")||gender.equalsIgnoreCase("Female")){
@@ -126,13 +121,8 @@ public class Appointment {
     }
     private void schedFinished(){
         boolean exit = true;
-        LocalDate cdate = LocalDate.now();
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate bdate;
-        System.out.println("+----------------------------------------------------------------------------------------------------+");
-        System.out.printf("|%-25s%-50s%-25s|\n","","**Set Scheduled To Finished**","");
-        System.out.printf("|%-25s%-50s%-25s|\n","","**!Enter 0 in ID to Exit!**","");
-        System.out.print("|\tEnter ID of Owner: ");
+        System.out.println("\tSet Scheduled To Finished");
+        System.out.print("Enter ID of Owner: ");
         int id;
         while(true){
             try{
@@ -150,10 +140,12 @@ public class Appointment {
                 System.out.print("|\tEnter ID Again: ");
             }
         }
+        LocalDate cdate = LocalDate.now();
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate bdate;
         while(exit){
             displaySched(id);
-            System.out.printf("|%-25s%-50s%-25s|\n","","**!Enter 0 in ID to Exit!**","");
-            System.out.print("|\tEnter ID to set Finished: ");
+            System.out.print("Enter ID to set Finished: ");
             int Aid;
             while(true){
                 try{
@@ -164,11 +156,11 @@ public class Appointment {
                         exit = false;
                         break;
                     }else{
-                        System.out.print("|\tEnter ID Again: ");
+                        System.out.print("Enter ID Again: ");
                     }
                 }catch(Exception e){
                     input.next();
-                    System.out.print("|\tEnter ID Again: ");
+                    System.out.print("Enter ID Again: ");
                 }
             }
             while(exit){
@@ -182,13 +174,8 @@ public class Appointment {
     }
     private void schedCancel(){
         boolean exit = true;
-        LocalDate cdate = LocalDate.now();
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate bdate;
-        System.out.println("+----------------------------------------------------------------------------------------------------+");
-        System.out.printf("|%-25s%-50s%-25s|\n","","**Set Scheduled To Cancel**","");
-        System.out.printf("|%-25s%-50s%-25s|\n","","**!Enter 0 in ID to Exit!**","");
-        System.out.print("|\tEnter ID of Owner: ");
+        System.out.println("\nSet Scheduled To Cancel");
+        System.out.print("Enter ID of Owner: ");
         int id;
         while(true){
             try{
@@ -199,17 +186,19 @@ public class Appointment {
                     exit = false;
                     break;
                 }else{
-                    System.out.print("|\tEnter ID Again: ");
+                    System.out.print("Enter ID Again: ");
                 }
             }catch(Exception e){
                 input.next();
-                System.out.print("|\tEnter ID Again: ");
+                System.out.print("Enter ID Again: ");
             }
         }
+        LocalDate cdate = LocalDate.now();
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate bdate;
         while(exit){
             displaySched(id);
-            System.out.printf("|%-25s%-50s%-25s|\n","","**!Enter 0 in ID to Exit!**","");
-            System.out.print("|\tEnter ID to set Cancel: ");
+            System.out.print("Enter ID to set Cancel: ");
             int Aid;
             while(true){
                 try{
@@ -220,11 +209,11 @@ public class Appointment {
                         exit = false;
                         break;
                     }else{
-                        System.out.print("|\tEnter ID Again: ");
+                        System.out.print("Enter ID Again: ");
                     }
                 }catch(Exception e){
                     input.next();
-                    System.out.print("|\tEnter ID Again: ");
+                    System.out.print("Enter ID Again: ");
                 }
             }
             while(exit){
@@ -242,16 +231,12 @@ public class Appointment {
         String[] tbl_Columns = {"A_Id", "C_Id","A_Type", "A_Name", "A_Status"};
         conf.viewRecords(tbl_view, tbl_Headers, tbl_Columns);
     }
-    
-    
     public void displaySched(int id){
         String tbl_view = "SELECT * FROM A_Appointments Where A_Status = 'Scheduled' AND C_Id = "+id;
         String[] tbl_Headers = {"ID", "Animal Type", "Animal Name", "Status"};
         String[] tbl_Columns = {"A_Id", "A_Type", "A_Name", "A_Status"};
         conf.viewRecords(tbl_view, tbl_Headers, tbl_Columns);
     }
-    
-    //validation tanan sa ubos
     private boolean doesIDexists(int id, config conf) {
         String query = "SELECT COUNT(*) FROM C_Clients Where C_Id = ?";
         try (Connection conn = conf.connectDB();

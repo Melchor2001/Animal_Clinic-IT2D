@@ -1,4 +1,4 @@
-package Mondejar;
+package Clinic;
 
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
